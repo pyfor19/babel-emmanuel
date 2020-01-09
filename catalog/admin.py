@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import gettext as _
 from .models import Author, Publication, Dewey
 
 
@@ -25,14 +26,15 @@ class PublicationAdmin(admin.ModelAdmin):
     )
 
     fieldsets = (
-        ("Reference", {"fields": fields_reference}),
-        ("Publication", {"fields": fields_publication}),
-        ("Detail", {"fields": fields_detail, "classes": ("collapse",)}),
+        (_("Référence"), {"fields": fields_reference}),
+        (_("Publication"), {"fields": fields_publication}),
+        (_("Détail"), {"fields": fields_detail, "classes": ("collapse",)}),
     )
     readonly_fields = ("reference",)
     radio_fields = {"type_publication": admin.HORIZONTAL}
     autocomplete_fields = ["dewey_number", "author"]
     search_fields = ["name"]
+    list_filter = ("dewey_number__number", "author__last_name")
 
 
 class AuthorAdmin(admin.ModelAdmin):
@@ -55,20 +57,29 @@ class AuthorAdmin(admin.ModelAdmin):
     )
 
     fieldsets = (
-        ("Identity", {"fields": fields_identity}),
-        ("Detail", {"fields": fields_detail, "classes": ("collapse",)}),
-        ("Died", {"fields": fields_death, "classes": ("collapse",)}),
+        (_("Identité"), {"fields": fields_identity}),
+        (_("Détail"), {"fields": fields_detail, "classes": ("collapse",)}),
+        (_("Contemporain ?"), {"fields": fields_death, "classes": ("collapse",)}),
     )
     readonly_fields = ("century_birth",)
-    search_fields = ["last_name", "first_name"]
+    search_fields = (
+        "last_name",
+        "first_name",
+        "age",
+    )
+    list_filter = ("century_birth",)
 
 
 class DeweyAdmin(admin.ModelAdmin):
     list_display = (
         "number",
         "name",
+        "colored_number",
     )
-    search_fields = ["number", "name"]
+    search_fields = (
+        "number",
+        "name",
+    )
 
 
 admin.site.register(Author, AuthorAdmin)

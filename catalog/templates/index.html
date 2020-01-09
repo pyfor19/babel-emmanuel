@@ -45,15 +45,41 @@
 
 checkurl :<br>
 
-{% if checkurl.dataset %}
-    {% for item in checkurl.dataset %}
-        {{ item.title|safe }}<br>
-        <img src="{{ item.image }}" width="200px" /><br>
-    {% endfor %}
-{% else %}
-    {{ checkurl|safe }}
-{% endif %}
-
+<style>
+      .newsroom {
+        width: 400px;
+        border: 1px solid black;
+      }      .newsroom li {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }      .newsroom h3 {
+        font-size: 1.1rem;
+      }      .newsroom a {
+        text-decoration: none;
+        color: black;
+      }
+    </style>
+    <div class="newsroom">
+      <h2>
+        Salle de presse
+      </h2>
+      <div class="newsroom-list">
+        {% if checkurl.dataset %}
+        <ul class="list-unstyled">
+          {% for item in checkurl.dataset %}
+          <a href="{{ item.url }}">
+          <li>
+            <h3>{{ item.title }}</h3>
+            <img class="img-fluid" src="{{ item.image }}" />
+            {% endfor %}
+          </li>
+        </a>
+        </ul>
+        {% else %}
+            {{checkurl|safe}}
+        {% endif %}
+      </div>
+    </div>
 
 
 

@@ -178,7 +178,7 @@ if __name__ == "__main__":
     for item in letempsquipasse:
         print(item)
 
-    a_listedesurls = [
+    listedesurls = [
         "https://www.elpais.com",
         "https://www.excelcior.com",
         "https://www.liberation.fr",
@@ -189,7 +189,7 @@ if __name__ == "__main__":
         "https://www.japantimes.co.jp",
     ]
 
-    listedesurls = [
+    xlistedesurls = [
         "https://www.ouest-france.fr",
     ]
 

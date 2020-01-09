@@ -2,6 +2,23 @@ from django.test import TestCase
 from .utils import get_century
 
 
+class UtilsTestCase(TestCase):
+    def test_get_century(self):
+
+        year_to_test_with_result = [
+            (1701, 18),
+            (19, 1),
+            (1700, 17),
+            (2011, 21),
+            (1200, 12),
+            (403, 5),
+        ]
+        for testy in year_to_test_with_result:
+            century = get_century(testy[0])
+            self.assertEqual(century, testy[1])
+
+
+"""
 def test_get_century():
     year_to_test = [1701, 19, 1700, 2011, 1200, 403]
     for y in year_to_test:
@@ -27,3 +44,4 @@ def test_get_century():
 
 
 test_get_century()
+"""
