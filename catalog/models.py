@@ -1,10 +1,14 @@
 from django.db import models
+from django.utils.translation import gettext as _
+from .utils import get_century
 
 # Create your models here.
 
 
 class Author(models.Model):
-    first_name = models.CharField(max_length=30, null=True, blank=True)
+    first_name = models.CharField(
+        max_length=30, null=True, blank=True, verbose_name=_("Prénom"),
+    )
     last_name = models.CharField(max_length=30)
     name = models.CharField(max_length=61, editable=False)
     century_birth = models.IntegerField(null=True, blank=True)
@@ -14,7 +18,7 @@ class Author(models.Model):
     date_died = models.DateField(null=True, blank=True)
     place_died = models.CharField(max_length=50, null=True, blank=True)
 
-    content = models.TextField(null=True, blank=True)
+    content = models.TextField(null=True, blank=True, verbose_name=_("Contenu"))
     image_url = models.URLField(null=True, blank=True)
     image_file = models.ImageField(null=True, blank=True)
 
@@ -27,23 +31,29 @@ class Author(models.Model):
         else:
             return self.last_name
 
-    # def save()
+    def clean(self):
+        """
+        update of century from date_birth using catalog.utils.get_century function
+        """
+        if self.date_birth:
+            century = get_century(self.date_birth.year)
+            self.century_birth = century
 
 
 class Publication(models.Model):
     TYPE_PUBLICATION_CHOICES = [
-        ("_", "Indéfini"),
         ("B", "Livres"),
         ("M", "Musique"),
         ("F", "Film"),
+        ("*", "Autre"),
     ]
 
     name = models.CharField(max_length=61)
     reference = models.CharField(max_length=61, editable=False)
     type_publication = models.CharField(
-        max_length=1, choices=TYPE_PUBLICATION_CHOICES, default="_",
+        max_length=1, choices=TYPE_PUBLICATION_CHOICES, default="B",
     )
-    genre = models.CharField(max_length=35)
+    # genre = models.CharField(max_length=35)
     author = models.ForeignKey(Author, models.PROTECT, null=True)
     dewey_number = models.ForeignKey("Dewey", models.PROTECT, null=True)
     date_publication = models.DateField(null=True, blank=True)
@@ -51,6 +61,8 @@ class Publication(models.Model):
     nb_tracks_pages = models.IntegerField(null=True, blank=True)
     content = models.TextField(null=True, blank=True)
     image_url = models.URLField(null=True, blank=True)
+    image_file = models.ImageField(null=True, blank=True)
+    isbn = models.CharField(max_length=50, null=True, blank=True)
 
     class Meta:
         ordering = ["reference"]
@@ -68,6 +80,8 @@ class Publication(models.Model):
 class Dewey(models.Model):
     name = models.CharField(max_length=150)
     number = models.CharField(max_length=3)
+    bg_color = models.CharField(max_length=7, default="*")
+    text_color = models.CharField(max_length=7, default="*")
 
     class Meta:
         ordering = ["number"]
