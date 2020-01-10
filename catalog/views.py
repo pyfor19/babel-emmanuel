@@ -2,6 +2,8 @@ import json
 from django.shortcuts import render
 from django.conf import settings
 
+from .models import Dewey, Publication
+
 # Create your views here.
 CONTEXT_GLOBAL = {
     "mediatheque_name": "Bibliothèque de St Pons",
@@ -10,6 +12,27 @@ CONTEXT_GLOBAL = {
     "dev_github": "https://github.com/pyfor19/babel-emmanuel",
     "dev_cadre": "Formation Django/Python FORMEXT",
 }
+
+
+def publication(request):
+
+    record = Dewey.objects.get(number="100")
+    record_list = Dewey.objects.all()
+
+    publication_list = Publication.objects.all()
+
+    context_local = {
+        "title": "Liste des publications du catalogue",
+        "description": "Vous trouverez tous les ouvrages et leurs classifications",
+    }
+    context_page = {
+        "global": CONTEXT_GLOBAL,
+        "local": context_local,
+        "dewey_object": record,
+        "dewey_object_list": record_list,
+        "publication_object_list": publication_list,
+    }
+    return render(request, "catalog/publication.html", context=context_page)
 
 
 def home(request):

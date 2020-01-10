@@ -1,0 +1,39 @@
+{% comment %}
+    {% for publication_record in publication_object_list %}
+        {{ publication_record }} <br>
+    {% endfor %}
+{% endcomment %}
+
+
+<div class="publication-list">
+
+<h2>Liste des publications : </h2>
+
+<table class="table table-sm table-responsive">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Publication</th>
+      <th scope="col">Auteur</th>
+      <th scope="col">Type</th>
+      <th scope="col">Editeur/Label</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+  {% for publication_record in publication_object_list %}
+    <tr>
+      <td>{{ publication_record.reference }}</td>
+      <td>{{ publication_record.name }}</td>
+      <td>{{ publication_record.author }}</td>
+      <td>{{ publication_record.type_publication }}</td>
+      <td>{{ publication_record.label_editor }}</td>
+
+    </tr>
+
+  {% endfor %}
+
+    </tbody>
+</table>
+    
+</div>
