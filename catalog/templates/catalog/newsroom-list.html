@@ -1,0 +1,24 @@
+
+
+<div class="newsroom">
+    <h2>
+    Salle de presse
+    </h2>
+    <div class="newsroom-list">
+    {% if checkurl.dataset %}
+    <ul class="list-unstyled">
+        {% for item in checkurl.dataset %}
+        <a href="{{ item.url }}">
+        <li>
+        <h3>{{ item.title }}</h3>
+        <img class="img-fluid" src="{{ item.image }}" />
+        {% endfor %}
+        </li>
+    </a>
+    </ul>
+    {% else %}
+        {{checkurl|safe}}
+    {% endif %}
+    </div>
+</div>
+

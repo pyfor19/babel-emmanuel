@@ -1,0 +1,25 @@
+.newsroom {
+    /* width: 400px; */
+    border: 1px solid black;
+}
+
+.newsroom li {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.newsroom h3 {
+    font-size: 1.1rem;
+}
+
+.newsroom a {
+    text-decoration: none;
+    color: black;
+}
+
+
+footer {
+    padding: 1rem;
+    background-color: lightblue;
+    margin-top: 1rem;
+}

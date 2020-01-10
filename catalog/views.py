@@ -39,11 +39,20 @@ def newsroom(request):
     except Exception as e:
         dict_checkurl = {"error": str(e)}
 
-    dict_context = {
-        "jumbotron_title": "Bienvenue sur notre page Babel",
-        "jumbotron_p": "Vous aurez toutes les informations plus tard...",
-        "checkurl": dict_checkurl,
+    context_local = {
+        "title": "Salle de Presse",
+        "description": "Découvrez une liste de quotidiens internationaux",
     }
 
-    return render(request, "catalog/newsroom.html", context=dict_context)
+    # pour ajouter les deux dictionnaires onedict et anotherdict au dictionnaire bigdict,
+    # j'utilise
+    # bigdict = { **onedict, **anotherdict }
+
+    context_page = {
+        "checkurl": dict_checkurl,
+        "local": context_local,
+        "global": CONTEXT_GLOBAL,
+    }
+
+    return render(request, "catalog/newsroom.html", context=context_page)
 
