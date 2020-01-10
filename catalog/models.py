@@ -152,3 +152,11 @@ class Dewey(models.Model):
     def __str__(self):
         return f"{self.number} - {self.name}"
         # return self.colored_number()
+
+
+class DeweyTest(models.Model):
+    class Meta:
+        ordering = ["number"]
+
+    name = models.CharField(max_length=150, verbose_name=_("Libellé"))
+    number = models.CharField(max_length=12, verbose_name=_("Numéro"))

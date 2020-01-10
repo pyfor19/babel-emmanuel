@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import gettext as _
-from .models import Author, Publication, Dewey
+from .models import Author, Publication, Dewey, DeweyTest
 
 
 class PublicationAdmin(admin.ModelAdmin):
@@ -74,7 +74,6 @@ class DeweyAdmin(admin.ModelAdmin):
     list_display = (
         "number",
         "name",
-        "colored_number",
     )
     search_fields = (
         "number",
@@ -82,6 +81,11 @@ class DeweyAdmin(admin.ModelAdmin):
     )
 
 
+class DeweyTestAdmin(DeweyAdmin):
+    pass
+
+
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Publication, PublicationAdmin)
 admin.site.register(Dewey, DeweyAdmin)
+admin.site.register(DeweyTest, DeweyTestAdmin)
