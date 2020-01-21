@@ -65,7 +65,7 @@ class Publication(models.Model):
         ("*", "Autre"),
     ]
 
-    name = models.CharField(max_length=61, verbose_name=_("Prénom"))
+    name = models.CharField(max_length=61, verbose_name=_("Ouvrage"))
     reference = models.CharField(
         max_length=61, editable=False, verbose_name=_("Référence")
     )

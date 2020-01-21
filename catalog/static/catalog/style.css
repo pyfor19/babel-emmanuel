@@ -44,6 +44,55 @@
     padding: 0px;
 }
 
+.dewey000 {
+    background-color: #000000;
+    color: #fff;
+}
+
+.dewey100 {
+    background-color: #8B4513;
+    color: #fff;
+}
+
+.dewey200 {
+    background-color: #FF0000;
+    color: #fff;
+}
+
+.dewey300 {
+    background-color: #FF4500;
+    color: #fff;
+}
+
+.dewey400 {
+    background-color: #FFFF00;
+    color: #000;
+}
+
+.dewey500 {
+    background-color: #32CD32;
+    color: #fff;
+}
+
+.dewey600 {
+    background-color: #1E90FF;
+    color: #fff;
+}
+
+.dewey700 {
+    background-color: #8B008B;
+    color: #fff;
+}
+
+.dewey800 {
+    background-color: #A9A9A9;
+    color: #fff;
+}
+
+.dewey900 {
+    background-color: #FFFFFF;
+    color: #000;
+}
 
 /* publication-list
 */

@@ -1,3 +1,4 @@
+{% load i18n %}
 {% comment %}
     {{ dewey_object.number }}<br>
     {{ dewey_object.name }}<br>
@@ -9,11 +10,15 @@
     {% endfor %}
 {% endcomment %}
 <div class="dewey-list">
-    <h2>Filtrer par Dewey : </h2>
+    <h2>{% trans "Filtrer par Dewey " %}</h2>
     <div class="list-group dewey-list-group">
 
     {% for dewey_record in dewey_object_list %}
-        <a href="{% url 'publication' %}?dewey={{ dewey_record.number }}" type="button" class="list-group-item list-group-item-action">
+        {# ouverture sur liste par dewey #}
+        {# gestion du dewey active #}
+        <a href="{% url 'publication-dewey' dewey_record.number %}"              
+            class="list-group-item list-group-item-action {%if dewey_active and dewey_active == dewey_record %}active{% endif %}">
+
         {{ dewey_record.colored_number }}
         {{ dewey_record.name|truncatechars:38 }}</a>
     {% endfor %}

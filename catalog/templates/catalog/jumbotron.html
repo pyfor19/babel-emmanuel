@@ -1,4 +1,5 @@
-<div class="jumbotron jumbotron-fluid">
+
+<div class="jumbotron jumbotron-fluid {%if jumbotron_class %}{{jumbotron_class}}{%endif%}">
   <div class="container">
     <h1 class="display-4">{{ local.title }}</h1>
     <p class="lead">{{ local.description }}</p>
