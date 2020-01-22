@@ -19,6 +19,8 @@ pillow = "*"
 xlrd = "*"
 gunicorn = "*"
 django-heroku = "*"
+dj-database-url = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"

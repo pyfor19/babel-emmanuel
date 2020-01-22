@@ -9,22 +9,34 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-
 import os
+from distutils.util import strtobool
+from dotenv import load_dotenv
+
 import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(f"BASE_DIR = {BASE_DIR}")
+
+# charge les variables dans le fichier .env du projet
+env_path = BASE_DIR + "/.env"
+load_dotenv(dotenv_path=env_path)
+
+print(f"BASE_DIR = {BASE_DIR}, {env_path}")
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "80&1jg&jg=x-3yyaftg4w_ab272dpx6$1g_*@68+ow1l-^^2%0"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = strtobool(os.getenv("DEBUG_DJANGO", "0"))
+
+if DEBUG:
+    print("MODE DEBUG !!!!")
 
 ALLOWED_HOSTS = []
 
@@ -76,12 +88,15 @@ WSGI_APPLICATION = "babel.wsgi.application"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
+    # si j'utilise la base sqllite3
+    # "default": {
+    #    "ENGINE": "django.db.backends.sqlite3",
+    #    "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    # }
+    #
+    "default": dj_database_url.config(),
 }
-
+DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
