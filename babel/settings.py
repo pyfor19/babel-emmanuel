@@ -38,7 +38,11 @@ DEBUG = strtobool(os.getenv("DEBUG_DJANGO", "0"))
 if DEBUG:
     print("MODE DEBUG !!!!")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "babelem.herokuapp.com",
+    "localhost",
+]
 
 
 # Application definition
@@ -61,6 +65,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "babel.urls"
@@ -76,6 +81,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.media",
             ],
         },
     },
@@ -139,6 +145,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "files_media")
 
 print(f"STATIC = {STATIC_ROOT}")
+print(f"STATIC = {MEDIA_ROOT}")
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
