@@ -65,7 +65,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "babel.urls"
@@ -93,16 +93,23 @@ WSGI_APPLICATION = "babel.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    # si j'utilise la base sqllite3
-    # "default": {
-    #    "ENGINE": "django.db.backends.sqlite3",
-    #    "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    # }
-    #
-    "default": dj_database_url.config(),
-}
-DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# Gère le chargement des bases de données, soit SQLLite3 en local, soit PostgreSQL en cloud
+USE_LOCAL_DB = strtobool(os.getenv("USE_LOCAL_DB", "0"))
+if USE_LOCAL_DB:
+    print("UTILISE LE MODE LOCAL DB : SQLLITE")
+    # charge sqllite (le défaut en développement)
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+else:
+    # charge postgresql (le défaut en production)
+    DATABASES = {
+        "default": dj_database_url.config(),
+    }
+    DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -147,5 +154,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "files_media")
 print(f"STATIC = {STATIC_ROOT}")
 print(f"STATIC = {MEDIA_ROOT}")
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
+if not USE_LOCAL_DB:
+    # Activate Django-Heroku.
+    django_heroku.settings(locals())
