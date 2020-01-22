@@ -17,6 +17,8 @@ django = "*"
 beautifulsoup4 = "*"
 pillow = "*"
 xlrd = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 [requires]
 python_version = "3.7"
