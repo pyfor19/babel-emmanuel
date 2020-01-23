@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from distutils.util import strtobool
 from dotenv import load_dotenv
-
 import django_heroku
 import dj_database_url
 

@@ -1,0 +1,29 @@
+{% extends 'catalog/base.html' %}
+
+
+{% block content %}
+
+<h1>{{ object }}</h1>
+
+<ul>
+    <li>{{object.name}}</li>
+    <li>{{object.type_publication}}</li>
+    <li>{{object.date_publication}}</li>
+    <li>author: 
+        <ul>
+            <li>{{object.author}}</li>
+            <li>{{object.author.century_birth}}</li>
+            <li>{{object.author.date_birth}}</li>
+        </ul>
+    </li>
+
+    <li><a href="{% url 'publication-dewey' object.dewey_number.number %}">{{object.dewey_number}}</a></li>
+    <li>{{object.dewey_number.colored_number}}</li>
+</ul>
+
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
