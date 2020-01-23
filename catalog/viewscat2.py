@@ -1,5 +1,7 @@
+import json
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 from django.utils.translation import gettext as _
+from django.http import HttpResponse
 from django import forms
 from django.urls import reverse_lazy
 from .models import Publication, Dewey
@@ -46,3 +48,14 @@ class PublicationUpdate(MixinContextPage, UpdateView):
 class PublicationByDewey(TemplateView):
     template_name = "catalog/publication.html"
 """
+
+
+def testajax(request):
+    print("test request")
+    if request.method == "POST":
+        print(request.body)
+        data = request.body
+        return HttpResponse(json.dumps(data))
+    else:
+        data = "vide"
+        return HttpResponse(json.dumps(data))

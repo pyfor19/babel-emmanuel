@@ -1,0 +1,24 @@
+{% extends 'catalog/publication-detail.html' %}
+
+
+{% block content %}
+    {% block contentactions %}
+        <a href="{{ object.get_absolute_url }}" class="btn btn-primary">Retour</a>
+    {% endblock %}
+    {% block contenttitle %}
+        {{ block.super }}
+    {% endblock %}
+
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_ul }}
+            <input type="submit" value="Mettre à jour">
+        </form>
+    </div>
+
+    {% block contentdetail %}
+        {{ block.super }}
+    {% endblock %}
+
+{% endblock %}

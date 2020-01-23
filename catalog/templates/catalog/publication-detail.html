@@ -1,24 +1,35 @@
 {% extends 'catalog/base.html' %}
-
-
 {% block content %}
-
-<h1>{{ object }}</h1>
-
-<ul>
-    <li>{{object.name}}</li>
-    <li>{{object.type_publication}}</li>
-    <li>{{object.date_publication}}</li>
-    <li>author: 
+    {% block contentactions %}
+        <a href="{% url 'publication-dewey' object.dewey_number.number %}" class="btn dewey{{object.dewey_number.number}}">Retour aux {{object.dewey_number}}</a>
+        {%if user.is_authenticated %}
+            <a href="{% url 'publication-update-pk' object.pk %}" class="btn btn-light">Editer</a>
+        {% endif %}        
+    {% endblock %}
+    {% block contenttitle %}
+        <h1>{{ object }}</h1>
+    {% endblock %}
+    {% block contentdetail %}
         <ul>
-            <li>{{object.author}}</li>
-            <li>{{object.author.century_birth}}</li>
-            <li>{{object.author.date_birth}}</li>
+            <li>{{object.name}}</li>
+            <li>Type : {{object.type_publication}}</li>
+            <li>Date : {{object.date_publication}}</li>
+            <li>author: 
+                <ul>
+                    <li>{{object.author}}</li>
+                    <li>{{object.author.century_birth}}</li>
+                    <li>{{object.author.date_birth}}</li>
+                </ul>
+            </li>
+            <li>contenu :<br> {{ object.content }} </li>
+            <li>nb de pistes / de pages  :<br> {{ object.nb_tracks_pages }} </li>
+            {%if object.image_file %}
+                <li>image attachée :<br> {{ object.image_file }} </li>
+            {% endif %}
+            {%if object.image_url %}
+                <li><img src="{{ object.image_url }}" class="img-fluid" alt="Image associée à {{object.name}}"></li>
+            {% endif %}            
+            <li>{{object.dewey_number.colored_number}}</li>
         </ul>
-    </li>
-
-    <li><a href="{% url 'publication-dewey' object.dewey_number.number %}">{{object.dewey_number}}</a></li>
-    <li>{{object.dewey_number.colored_number}}</li>
-</ul>
-
+    {% endblock %}
 {% endblock %}

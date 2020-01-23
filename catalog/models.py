@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
+from django.urls import reverse
 from .utils import get_century
 
 # Create your models here.
@@ -27,7 +28,7 @@ class Author(models.Model):
 
     content = models.TextField(null=True, blank=True, verbose_name=_("Contenu"))
     image_url = models.URLField(
-        null=True, blank=True, verbose_name=_("URL d'une image")
+        null=True, blank=True, verbose_name=_("URL d'une image"), max_length=300
     )
     image_file = models.ImageField(
         null=True, blank=True, verbose_name=_("Fichier image")
@@ -92,7 +93,9 @@ class Publication(models.Model):
         null=True, blank=True, verbose_name=_("Nb de pages/morceaux")
     )
     content = models.TextField(null=True, blank=True, verbose_name=_("Contenu"))
-    image_url = models.URLField(null=True, blank=True, verbose_name=_("URL d'image"))
+    image_url = models.URLField(
+        null=True, blank=True, verbose_name=_("URL d'image"), max_length=300
+    )
     image_file = models.ImageField(
         null=True, blank=True, verbose_name=_("Fichier image")
     )
@@ -111,6 +114,10 @@ class Publication(models.Model):
             self.reference = f"{self.dewey_number.number}.{self.author.last_name[:3].upper()}.{self.pk}"
         else:
             self.reference = ""
+
+    def get_absolute_url(self):
+        return reverse("publication-detail-pk", args=[str(self.id)])
+        # return f"/catalog/{self.id}/"
 
 
 class Dewey(models.Model):

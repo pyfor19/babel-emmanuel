@@ -1,9 +1,29 @@
 from django.contrib import admin
 from django.utils.translation import gettext as _
+
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
 from .models import Author, Publication, Dewey, DeweyTest
 
 
-class PublicationAdmin(admin.ModelAdmin):
+class AuthorResource(resources.ModelResource):
+    class Meta:
+        model = Author
+
+
+class PublicationResource(resources.ModelResource):
+    class Meta:
+        model = Publication
+
+
+class DeweyResource(resources.ModelResource):
+    class Meta:
+        model = Dewey
+
+
+class PublicationAdmin(ImportExportModelAdmin):
+    resource_class = PublicationResource
     list_display = (
         "name",
         "reference",
@@ -37,7 +57,8 @@ class PublicationAdmin(admin.ModelAdmin):
     list_filter = ("dewey_number__number", "author__last_name")
 
 
-class AuthorAdmin(admin.ModelAdmin):
+class AuthorAdmin(ImportExportModelAdmin):
+    resource_class = AuthorResource
     list_display = (
         "last_name",
         "first_name",
@@ -70,7 +91,8 @@ class AuthorAdmin(admin.ModelAdmin):
     list_filter = ("century_birth",)
 
 
-class DeweyAdmin(admin.ModelAdmin):
+class DeweyAdmin(ImportExportModelAdmin):
+    resource_class = DeweyResource
     list_display = (
         "number",
         "name",

@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render
 from django.conf import settings
-
+from django.db.models import Q
 from .models import Dewey, Publication
 
 # Create your views here.
@@ -18,11 +18,27 @@ def publication(request):
 
     try:
         # record = Dewey.objects.get(number="100")
-        record_list = Dewey.objects.all()
+
+        # record_list = Dewey.objects.all()
+        record_list = Dewey.objects.filter(
+            Q(number="000")
+            | Q(number="100")
+            | Q(number="200")
+            | Q(number="300")
+            | Q(number="400")
+            | Q(number="500")
+            | Q(number="600")
+            | Q(number="700")
+            | Q(number="800")
+            | Q(number="900")
+        )
+
         publication_list = Publication.objects.all()
     except:
         record_list = publication_list = None
 
+    print(record_list.query)
+    print(record_list)
     context_local = {
         "title": "Liste des publications du catalogue",
         "description": "Vous trouverez tous les ouvrages et leurs classifications",

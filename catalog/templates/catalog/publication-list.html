@@ -4,6 +4,7 @@
     {% endfor %}
 {% endcomment %}
 
+{% if publication_object_list %}
 
 <div class="publication-list">
 
@@ -21,17 +22,23 @@
       <th scope="col">Auteur</th>
       <th scope="col">Type</th>
       <th scope="col">Editeur/Label</th>
+      <th scope="col">edit</th>
       
     </tr>
   </thead>
   <tbody>
   {% for publication_record in publication_object_list %}
     <tr>
-      <td><a href="{% url 'publication-detail-pk' publication_record.pk %}">{{ publication_record.reference }}</a></td>
+      
+
+
+      <td><a href="{{ publication_record.get_absolute_url }}">{{ publication_record.reference }}</a></td> 
       <td>{{ publication_record.name }}</td>
       <td>{{ publication_record.author }}</td>
       <td>{{ publication_record.type_publication }}</td>
       <td>{{ publication_record.label_editor }}</td>
+
+      <td><a href="{% url 'publication-update-pk' publication_record.pk %}">edit</a></td> 
 
     </tr>
 
@@ -41,3 +48,9 @@
 </table>
     
 </div>
+
+{% else %}
+<div class="publication-list">
+  <h2>Pas de publications</h2>
+</div>
+{% endif %}

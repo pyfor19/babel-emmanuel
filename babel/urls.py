@@ -8,7 +8,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from catalog.views import home, newsroom, about, publication
-from catalog.viewscat import PublicationByDewey, PublicationDetail
+from catalog.viewscat import PublicationUpdate, PublicationByDewey, PublicationDetail
+
+from catalog.viewscat2 import testajax
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -20,13 +22,14 @@ urlpatterns = [
         PublicationByDewey.as_view(),
         name="publication-dewey",
     ),
-    path(
-        "catalog/<int:deweynumber>_<str:authorref>_<pk>/",
-        PublicationDetail.as_view(),
-        name="publication-detail",
-    ),
     path("catalog/<pk>/", PublicationDetail.as_view(), name="publication-detail-pk",),
+    path(
+        "catalog/<pk>/update/",
+        PublicationUpdate.as_view(),
+        name="publication-update-pk",
+    ),
     path("", home, name="home"),
+    path("ajax/test/", testajax),
 ]
 
 if settings.DEBUG:

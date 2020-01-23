@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 from django.utils.translation import gettext as _
 from .models import Publication, Dewey
 from .views import CONTEXT_GLOBAL
@@ -41,21 +41,24 @@ class PublicationByDewey(MixinContextPage, ListView):
 
     def get_queryset(self):
         # argument dewey_number provenant de la structure de l'url
-        deweynumber = self.kwargs["deweynumber"]
+        self.deweynumber = self.kwargs["deweynumber"]
 
         # requête sur les publications avec le classement dewey spécifié dans l'url
-        queryset = Publication.objects.filter(dewey_number__number=deweynumber)
+        queryset = Publication.objects.filter(dewey_number__number=self.deweynumber)
 
         # et requête avec l'objet dewey
-        self.currentdewey = Dewey.objects.get(number=deweynumber)
+        self.currentdewey = Dewey.objects.get(number=self.deweynumber)
         self.publication_count = queryset.count()
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         # requête pour avoir la liste du classement dewey
-        context["dewey_object_list"] = Dewey.objects.all()
+        context["dewey_object_list"] = Dewey.objects.filter(
+            number__icontains="00"
+        ) | Dewey.objects.filter(number__startswith=self.deweynumber[:1])
 
         # ajout de l'élément dewey actif
         context["dewey_active"] = self.currentdewey
@@ -79,6 +82,19 @@ class PublicationDetail(MixinContextPage, DetailView):
     template_name = "catalog/publication-detail.html"
     model = Publication
     title = "Ma publication en détail"
+
+
+class PublicationUpdate(MixinContextPage, UpdateView):
+    template_name = "catalog/publication-update.html"
+    model = Publication
+    title = "Je mets à jour la publication"
+    fields = (
+        "date_publication",
+        "nb_tracks_pages",
+        "content",
+        "image_file",
+        "image_url",
+    )
 
 
 """
