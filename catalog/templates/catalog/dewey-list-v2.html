@@ -1,0 +1,25 @@
+{% load i18n %}
+{% comment %}
+    {{ dewey_object.number }}<br>
+    {{ dewey_object.name }}<br>
+    {{ dewey_object.colored_number }}<br>
+    
+    {% for dewey_record in dewey_object_list %}
+        {{ dewey_record.colored_number }}<br>
+        {{ dewey_record.number }}, {{ dewey_record.name }}<br>
+    {% endfor %}
+{% endcomment %}
+<div class="dewey-list">
+    <div class="list-group dewey-list-group">
+
+    {% for dewey_record in dewey_object_list %}
+        {# ouverture sur liste par dewey #}
+        {# gestion du dewey active #}
+        <a href="{% url 'publication-dewey' dewey_record.number %}"              
+            class="list-group-item list-group-item-action {%if dewey_active and dewey_active == dewey_record %}active{% endif %}">
+
+        {{ dewey_record.colored_number }}
+        {{ dewey_record.name|truncatechars:38 }}</a>
+    {% endfor %}
+    </div>
+</div>

@@ -107,6 +107,12 @@
 
 /* base 
 */
+
+.background-grey {
+    background-color: #e9ecef;
+    color: #000;
+}
+
 footer {
     padding: 1rem;
     background-color: #8B4513;
@@ -146,4 +152,15 @@ footer a:hover {
     background-color: #8B4513;
     padding: 1rem;
     border-radius: 10px;
+}
+
+/* list
+*/
+
+@media (min-width: 768px) {
+    .collapse.dont-collapse-sm {
+        display: block;
+        height: auto !important;
+        visibility: visible;
+    }
 }

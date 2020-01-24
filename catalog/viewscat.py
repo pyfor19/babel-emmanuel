@@ -12,11 +12,11 @@ class MixinContextPage:
         context_local = {
             "title": self.title,
             "description": self.description,
+            "active": "publication",
         }
         context_page = {
             "global": CONTEXT_GLOBAL,
             "local": context_local,
-            "active" : "publication",
         }
         return context_page
 
@@ -31,7 +31,7 @@ class PublicationByDewey(MixinContextPage, ListView):
     Vue permettant de voir les publications filtrées par classement Dewey 
     """
 
-    template_name = "catalog/publication.html"
+    template_name = "catalog/publication-v2.html"
     context_object_name = "publication_object_list"
     # ajout du MixinContextPage pour hériter d'un context global et local
     # ajout du support de la traduction avec _()

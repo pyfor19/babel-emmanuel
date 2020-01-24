@@ -15,7 +15,7 @@
     <title>{{ local.title }}</title>
     <meta name="description" content="{{ local.description }}">
   </head>
-  <body>
+  <body {%if local.bodyclass %}class="{{local.bodyclass}}"{%endif%}>
 
   {% block navbar %}
   {% include 'catalog/navbar.html' %}

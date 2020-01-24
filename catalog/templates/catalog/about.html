@@ -1,15 +1,21 @@
 {% extends 'catalog/base.html' %}
 
-
+{% block jumbotron %}{% endblock jumbotron %}
 {% block content %}
-
+ 
 
 <div class="container mb-5 mt-5">
+ <div class="d-flex justify-content-center m-5">
+    <div>
+        <h1 class="display-4">{{ local.title }}</h1>
+        <p class="lead">{{ local.description }}</p>
+    </div>
+  </div>
 <div id="accordion">
     <div class="card">
         <div class="card-header" id="headingOne">
         <h3 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button class="btn btn-link" style="font-size: 1.3rem;" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             {{local.content1title}}
             </button>
         </h3>

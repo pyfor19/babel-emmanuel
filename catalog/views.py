@@ -16,8 +16,6 @@ CONTEXT_GLOBAL = {
 }
 
 
-
-
 def publication(request):
 
     try:
@@ -46,7 +44,7 @@ def publication(request):
     context_local = {
         "title": "Liste des publications du catalogue",
         "description": "Vous trouverez tous les ouvrages et leurs classifications",
-        "active" : "publication",
+        "active": "publication",
     }
     context_page = {
         "global": CONTEXT_GLOBAL,
@@ -64,7 +62,7 @@ def home(request):
         "local": {
             "title": "Bienvenue sur Babel",
             "description": description,  # "Bienvenue sur cette page en cours de réalisation",
-            "active" : "home",
+            "active": "home",
         },
         "jumbotron": {
             "class": "home-jumbotron",
@@ -80,11 +78,12 @@ def about(request):
     context_local = {
         "title": "A propos de Babel",
         "description": "Vous trouverez tous les détails de spécifications ici.",
-        "content1" : read_from_markdown("readme.md"),
-        "content1title" : "Notre readme sur le projet Babel",
-        "content2" : read_from_markdown("changelog.md"),
-        "content2title" : "Notre changelog sur les étapes de notre formation",
-        "active" : "about",
+        "content1": read_from_markdown("readme.md"),
+        "content1title": "Notre readme sur le projet Babel",
+        "content2": read_from_markdown("changelog.md"),
+        "content2title": "Notre changelog sur les étapes de notre formation",
+        "active": "about",
+        "bodyclass": "background-grey",
     }
     context_page = {"global": CONTEXT_GLOBAL, "local": context_local}
     return render(request, "catalog/about.html", context=context_page)
@@ -102,7 +101,7 @@ def newsroom(request):
     context_local = {
         "title": "Salle de Presse",
         "description": "Découvrez une liste de quotidiens internationaux",
-        "active" : "newsroom",
+        "active": "newsroom",
     }
 
     # pour ajouter les deux dictionnaires onedict et anotherdict au dictionnaire bigdict,
