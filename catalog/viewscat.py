@@ -37,8 +37,8 @@ class PublicationByDewey(MixinContextPage, ListView):
     # ajout du support de la traduction avec _()
     # title = _("Liste des Publications par Dewey")
     # rendre title dynamique et traduisible
-    title = _("Liste des Publications dans {}")
-    description = _("Vous trouvez les publications classés par Dewey")
+    title = _("Dewey {}")
+    description = _("Vous trouvez seulement les publications de cette catégorie")
 
     def get_queryset(self):
         # argument dewey_number provenant de la structure de l'url

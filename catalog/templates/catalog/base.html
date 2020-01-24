@@ -29,10 +29,12 @@
   {% endblock %}
 
   {% block footer %}
-  <footer>
-  Site Babel pour : {{ global.mediatheque_name }}, {{ global.mediatheque_adr }}<br>
-  Développé par {{ global.dev_name }} dans le cadre {{ global.dev_cadre}}<br>
-  Sources sur : <a href="{{global.dev_github}}" target="_new">GITHUB</a>
+  <footer class="text-muted">
+    <div class="container-fluid p-3 p-md-5">
+    Site Babel pour : {{ global.mediatheque_name }}, {{ global.mediatheque_adr }}<br>
+    Développé par {{ global.dev_name }} dans le cadre {{ global.dev_cadre}}<br>
+    Sources sur : <a href="{{global.dev_github}}" target="_new">GITHUB</a>
+    </div>
   </footer>
   {% endblock %}
 

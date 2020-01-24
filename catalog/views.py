@@ -35,12 +35,10 @@ def publication(request):
             | Q(number="900")
         )
 
-        publication_list = Publication.objects.all()
+        publication_list = Publication.objects.all().order_by("-date_publication")
     except:
         record_list = publication_list = None
 
-    print(record_list.query)
-    print(record_list)
     context_local = {
         "title": "Liste des publications du catalogue",
         "description": "Vous trouverez tous les ouvrages et leurs classifications",
@@ -52,8 +50,10 @@ def publication(request):
         # "dewey_object": record,
         "dewey_object_list": record_list,
         "publication_object_list": publication_list,
+        "publication_count": publication_list.count(),
+        "navpubclass": "navbar-light",
     }
-    return render(request, "catalog/publication.html", context=context_page)
+    return render(request, "catalog/publication-v2.html", context=context_page)
 
 
 def home(request):
