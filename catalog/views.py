@@ -2,7 +2,9 @@ import json
 from django.shortcuts import render
 from django.conf import settings
 from django.db.models import Q
+from django.urls import reverse
 from .models import Dewey, Publication
+from .utils import read_from_markdown
 
 # Create your views here.
 CONTEXT_GLOBAL = {
@@ -12,6 +14,8 @@ CONTEXT_GLOBAL = {
     "dev_github": "https://github.com/pyfor19/babel-emmanuel",
     "dev_cadre": "Formation Django/Python FORMEXT",
 }
+
+
 
 
 def publication(request):
@@ -42,6 +46,7 @@ def publication(request):
     context_local = {
         "title": "Liste des publications du catalogue",
         "description": "Vous trouverez tous les ouvrages et leurs classifications",
+        "active" : "publication",
     }
     context_page = {
         "global": CONTEXT_GLOBAL,
@@ -54,11 +59,20 @@ def publication(request):
 
 
 def home(request):
-    context_local = {
-        "title": "Page d'accueil de Babel",
-        "description": "Bienvenue sur cette page en cours de réalisation",
+    description = read_from_markdown("catalog/static/markdown/home.md")
+    context = {
+        "local": {
+            "title": "Bienvenue sur Babel",
+            "description": description,  # "Bienvenue sur cette page en cours de réalisation",
+            "active" : "home",
+        },
+        "jumbotron": {
+            "class": "home-jumbotron",
+            "cta_url": reverse("publication"),
+            "cta_text": "Accès au catalogue",
+        },
     }
-    context_page = {"global": CONTEXT_GLOBAL, "local": context_local}
+    context_page = {"global": CONTEXT_GLOBAL, **context}
     return render(request, "catalog/index.html", context=context_page)
 
 
@@ -66,6 +80,11 @@ def about(request):
     context_local = {
         "title": "A propos de Babel",
         "description": "Vous trouverez tous les détails de spécifications ici.",
+        "content1" : read_from_markdown("readme.md"),
+        "content1title" : "Notre readme sur le projet Babel",
+        "content2" : read_from_markdown("changelog.md"),
+        "content2title" : "Notre changelog sur les étapes de notre formation",
+        "active" : "about",
     }
     context_page = {"global": CONTEXT_GLOBAL, "local": context_local}
     return render(request, "catalog/about.html", context=context_page)
@@ -83,6 +102,7 @@ def newsroom(request):
     context_local = {
         "title": "Salle de Presse",
         "description": "Découvrez une liste de quotidiens internationaux",
+        "active" : "newsroom",
     }
 
     # pour ajouter les deux dictionnaires onedict et anotherdict au dictionnaire bigdict,

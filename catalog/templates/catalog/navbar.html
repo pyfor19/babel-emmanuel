@@ -1,28 +1,28 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <a class="navbar-brand" href="{% url 'home' %}">Babel</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item {%if local.active == 'home' %}active{%endif%}">
         <a class="nav-link" href="{% url 'home' %}">Accueil <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {%if local.active == 'publication' %}active{%endif%}">
         <a class="nav-link" href="{% url 'publication' %}">Catalogue des ouvrages</a>
       </li>      
-      <li class="nav-item">
+      <li class="nav-item {%if local.active == 'newsroom' %}active{%endif%}">
         <a class="nav-link" href="{% url 'newsroom' %}">Salle de presse</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {%if local.active == 'about' %}active{%endif%}">
         <a class="nav-link" href="{% url 'about' %}">A propos</a>
       </li>
     </ul>
 
     {%if user.is_authenticated %}
-    {{ user.username }} : 
-    <a href="/admin/" class="btn btn-outline-success ml-2 mr-2">Admin</a> 
-    <a href="/admin/logout/" class="btn btn-outline-success">Bye</a>
+    <span style="color:#fff">{{ user.username }} : </span>
+    <a href="/admin/" class="btn btn-danger ml-2 mr-2">Admin</a> 
+    <a href="/admin/logout/" class="btn btn-danger">Bye</a>
     {% else %}
     <strong>Bienvenue !</strong>
     {% endif %}

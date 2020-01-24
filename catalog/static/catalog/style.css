@@ -109,6 +109,41 @@
 */
 footer {
     padding: 1rem;
-    background-color: lightblue;
-    margin-top: 1rem;
+    background-color: #8B4513;
+    color: #fff;
+    margin-top: 0;
+}
+
+footer a {
+    background-color: #000;
+    color: #fff;
+}
+
+footer a:hover {
+    background-color: #0000FF;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* home
+*/
+.home-jumbotron {
+    min-height: 90vh;
+    margin-bottom: 0;
+    background-color: #8B4513;
+    background-image: url('/static/catalog/background-home.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.home-jumbotron .container {
+    background-color: #8B4513;
+    padding: 1rem;
+    border-radius: 10px;
 }

@@ -16,6 +16,7 @@ class MixinContextPage:
         context_page = {
             "global": CONTEXT_GLOBAL,
             "local": context_local,
+            "active" : "publication",
         }
         return context_page
 

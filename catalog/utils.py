@@ -4,7 +4,25 @@
 """
 import os
 import xlrd
+import markdown
 from django.conf import settings
+
+
+def read_from_markdown(file_md):
+    """
+    lecture d'un fichier au format markdown à partir du root du projet
+    retourne le contenu au format html ou une indication d'erreur en texte
+    """
+    datafile = settings.BASE_DIR + "/" + file_md
+    try:
+        with open(datafile, "r", encoding="utf-8") as f:
+            data = f.read()
+            content = markdown.markdown(
+                data, output_format="html5", extensions=["fenced_code"]
+            )
+    except Exception as e:
+        content = f"Cannot read {datafile} ! Error is {str(e)}"
+    return content
 
 
 def get_century(year):

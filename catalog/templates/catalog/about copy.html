@@ -1,0 +1,98 @@
+{% extends 'catalog/base.html' %}
+
+
+{% block content %}
+
+
+<div class="container about">
+<div id="accordion">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+        <h3 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            {{local.content1title}}
+            </button>
+        </h3>
+        </div>
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+            {{local.content1|safe}}
+        </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+        <h3 class="mb-0">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            {{local.content2title}}
+            </button>
+        </h3>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+            {{local.content2|safe}}
+        </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<form method="POST" id="fruit-form">
+{% csrf_token %}
+    {{data}}
+    <br>
+Select your favorite fruit:
+<select id="mySelect">
+  <option value="apple" selected >Select fruit</option>
+  <option value="apple">Apple</option>
+  <option value="orange">Orange</option>
+  <option value="pineapple">Pineapple</option>
+  <option value="banana">Banana</option>
+</select>
+</form>
+
+
+{% endblock %}
+
+{% block userscript%}
+<script>
+function getCookie(c_name)
+{
+    if (document.cookie.length > 0)
+    {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1)
+        {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) c_end = document.cookie.length;
+            return unescape(document.cookie.substring(c_start,c_end));
+        }
+    }
+    return "";
+ }
+$(document).ready(function(){
+    $("#mySelect").change(function(){
+        selected = $("#mySelect option:selected").text()
+        $.ajax({
+           headers: { "X-CSRFToken": getCookie("csrftoken") },
+            type: 'POST',
+            url: '/ajax/test/',
+            dataType: 'json',
+            data: {
+                    'fruit': selected
+                  },
+            success: function(result) {
+                        document.write(result)
+                    },
+            error : function(xhr,errmsg,err) {
+            console.log(errmsg);
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+  });
+});
+</script>
+{% endblock %}

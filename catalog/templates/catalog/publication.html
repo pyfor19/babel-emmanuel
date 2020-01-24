@@ -2,12 +2,14 @@
 
 
 {% block content %}
+<div class="container-fluid">
 <div class="row no-gutters">
-    <div class="col-12 col-sm-4">
+    <div class="col-12 col-sm-4 col-md-3">
 {% include 'catalog/dewey-list.html' %}
     </div>
-    <div class="col-12 col-sm-8">
+    <div class="col-12 col-sm-8 cold-md-9">
 {% include 'catalog/publication-list.html' %}
     </div>
+</div>
 </div>
 {% endblock %}

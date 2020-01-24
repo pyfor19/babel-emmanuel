@@ -1,0 +1,15 @@
+
+<div class="jumbotron jumbotron-fluid {%if jumbotron.class %}{{jumbotron.class}}{%endif%}">
+  <div class="container">
+    <div class="d-flex justify-content-center">
+      <h1 class="display-4">{{ local.title }}</h1>
+    </div>
+    <div class="lead">{{ local.description|safe }}</div>
+    {% if jumbotron.cta_url %}
+      <hr class="my-4">    
+      <div class="d-flex justify-content-center">
+      <a class="btn btn-primary btn-lg" href="{{jumbotron.cta_url}}" role="button">{{jumbotron.cta_text}}</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
