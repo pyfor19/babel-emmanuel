@@ -8,15 +8,21 @@
 
 <div class="publication-list">
 
+{% if publication_count %}
+<h2>{{publication_count}} publications </h2>
+{%else%}
+<h2>Liste des publications </h2>
+{%endif%}
 
-<table class="table table-hover table-responsive-sm" style="width:100%; border: 1px solid black;">
+<table class="table table-sm table-responsive">
   <thead>
     <tr>
+      <th scope="col">#</th>
       <th scope="col">Publication</th>
-      <th scope="col">Parution</th>
-      <th scope="col">Réference</th>
-      
-      
+      <th scope="col">Auteur</th>
+      <th scope="col">Type</th>
+      <th scope="col">Editeur/Label</th>
+      <th scope="col">edit</th>
       
     </tr>
   </thead>
@@ -26,17 +32,13 @@
       
 
 
-      <td><a href="{{ publication_record.get_absolute_url }}"> {{ publication_record.name }}</a> 
-        <br>de {{ publication_record.author }}
-        {% if publication_record.label_editor %}
-            , {% if publication_record.type_publication == 'B' %}Edition{% elif publication_record.type_publication  == 'A' %}Label{%else %}Source{%endif%}
-        &nbsp;{{ publication_record.label_editor }}
-        {% endif %}
-      </td> 
-      <td>{{ publication_record.date_publication }}</td>
-      <td>{% if publication_record.type_publication  == 'B' %}Livre{% elif publication_record.type_publication  == 'A' %}Musique{%else %}Autre{%endif%}
-          {{ publication_record.reference }}
-      </td>
+      <td><a href="{{ publication_record.get_absolute_url }}">{{ publication_record.reference }}</a></td> 
+      <td>{{ publication_record.name }}</td>
+      <td>{{ publication_record.author }}</td>
+      <td>{{ publication_record.type_publication }}</td>
+      <td>{{ publication_record.label_editor }}</td>
+
+      <td><a href="{% url 'publication-update-pk' publication_record.pk %}">edit</a></td> 
 
     </tr>
 

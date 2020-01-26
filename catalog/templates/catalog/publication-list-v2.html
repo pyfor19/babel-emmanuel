@@ -1,0 +1,38 @@
+{% if publication_object_list %}
+<div class="publication-list">
+  <table class="table table-hover table-responsive-sm" style="width:100%; border: 1px solid black;">
+    <thead>
+      <tr>
+        <th scope="col">{{publication_count}} Publications</th>
+        <th scope="col">Parution</th>
+        <th colspan=2 scope="col">Réference</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for publication_record in publication_object_list %}
+      <tr>
+        <td>
+          <a href="{{ publication_record.get_absolute_url }}"> {{ publication_record.name }}</a> 
+          <br>de {{ publication_record.author }}
+          {% if publication_record.label_editor %}
+              , {% if publication_record.type_publication == 'B' %}Edition{% elif publication_record.type_publication  == 'M' %}Label{%else %}Source{%endif%}
+          &nbsp;{{ publication_record.label_editor }}
+          {% endif %}
+        </td> 
+        <td>{{ publication_record.date_publication }}</td>
+        <td>{% if publication_record.type_publication  == 'B' %}Livre{% elif publication_record.type_publication  == 'M' %}Musique{%else %}Autre{%endif%}
+            {{ publication_record.reference }}
+        </td>
+        <td class="width-10 dewey{{publication_record.dewey_number.number}} clickable-td" data-href="{% url 'publication-dewey' publication_record.dewey_number.number %}"></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>    
+</div>
+{% else %}
+<div class="publication-list">
+  <h2>Pas de publications</h2>
+</div>
+{% endif %}
+
+

@@ -1,42 +1,48 @@
 {% extends 'catalog/base.html' %}
 
 {% block jumbotron %}
-
 <div class="pt-3 {%if jumbotron_class %}{{jumbotron_class}}{% endif %}">
   <div class="container mt-3 mt-2">
     <h1 class="display-4">{{ local.title }}</h1>
     <p class="lead">{{ local.description }}</p>
   </div>
-  <nav class="navbar {% if navpubclass %}{{navpubclass}}{%else%}navbar-dark{%endif%} {%if jumbotron_class %}{{jumbotron_class}}{%endif%}" xstyle="background-color: #e3f2fd;">
-    <button class="navbar-toggler d-block d-sm-none" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span> <span class="{%if jumbotron_class %}{{jumbotron_class}}{%endif%}" style="font-size: 1.1rem"> Filtrer par Dewey </span>
-    </button>
-    <div class="d-none d-sm-block pl-3"><span class="{%if jumbotron_class %}{{jumbotron_class}}{%endif%}" style="font-size: 1.1rem;"> Filtrer par Dewey </span></div>
-    {% if publication_count %}
-            {{publication_count}} publications 
-    {%endif%}
-    <a href="{% url 'publication' %}" class="btn btn-secondary btn-sm">Catalogue</a>
+  <nav class="navbar {% if navpubclass %}{{navpubclass}}{%else%}navbar-dark{%endif%} {%if jumbotron_class %}{{jumbotron_class}}{%endif%}">
+    <div>
+      {%if request.path != '/catalog/' %}    
+      <a href="{% url 'publication' %}" class="btn btn-dark btn-sm">Catalogue</a>
+      {% endif %}
+      <button class="navbar-toggler d-sm-none" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span> <span class="{%if jumbotron_class %}{{jumbotron_class}}{%endif%}"> Filtrer par Dewey </span>
+      </button>
+      <div class="d-none d-sm-inline pl-3"><span class="{%if jumbotron_class %}{{jumbotron_class}}{%endif%}"> Filtrer par Dewey </span></div>
+    </div>
+
+
   </nav>
 </div>
 {% endblock %}
 
 {% block content %}
-
-
-  
-
-
-
 <div class="container-fluid">
-<div class="row xflex-xl-nowrap">
+  <div class="row">
     <div class="col-sm-12 col-md-4 col-xl-3 left-sidebar">
       <div class="collapse dont-collapse-sm" id="navbarToggleExternalContent">
         {% include 'catalog/dewey-list-v2.html' %}
       </div>
     </div>
-    <div class="col-sm-12 col-md-8 col-xl-9 pt-3">
-{% include 'catalog/publication-list.html' %}
+    <div class="col-sm-12 col-md-8 col-xl-9 pt-3 dont-padding-sm">
+      {% include 'catalog/publication-list-v2.html' %}
     </div>
+  </div>
 </div>
-</div>
+{% endblock %}
+
+{% block userscript %}
+<script>
+jQuery(document).ready(function($) {
+    $(".clickable-td").click(function() {
+        window.location = $(this).data("href");
+    });
+})
+</script>
 {% endblock %}

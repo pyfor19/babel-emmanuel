@@ -1,0 +1,30 @@
+{% extends 'catalog/publication-detail-v2.html' %}
+
+
+{% block content %}
+
+    {% block contentactions %}
+    <nav class="navbar dewey{{object.dewey_number.number}}">
+    <div>
+        <a href="{{ object.get_absolute_url }}" class="btn btn-sm btn-outline-dark">< Retour</a>
+        <a href="{% url 'publication-update-pk' object.pk %}" class="btn btn-sm btn-danger">Enregistrer les modifications</a>
+    </div>
+    </nav>
+    {% endblock %}
+    {% block contenttitle %}
+        {{ block.super }}
+    {% endblock %}
+
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_ul }}
+            <input type="submit" value="Mettre à jour">
+        </form>
+    </div>
+
+    {% block contentdetail %}
+        {{ block.super }}
+    {% endblock %}
+
+{% endblock %}

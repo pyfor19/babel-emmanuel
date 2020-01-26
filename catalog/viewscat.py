@@ -80,13 +80,13 @@ class PublicationByDewey(MixinContextPage, ListView):
 
 
 class PublicationDetail(MixinContextPage, DetailView):
-    template_name = "catalog/publication-detail.html"
+    template_name = "catalog/publication-detail-v2.html"
     model = Publication
     title = "Ma publication en détail"
 
 
 class PublicationUpdate(MixinContextPage, UpdateView):
-    template_name = "catalog/publication-update.html"
+    template_name = "catalog/publication-update-v2.html"
     model = Publication
     title = "Je mets à jour la publication"
     fields = (

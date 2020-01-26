@@ -1,5 +1,5 @@
 /* catalog style.css
-   version (django week2 day4)
+   version (django week4 v2)
    with :
    - newsroom
    - dewey-list 
@@ -64,6 +64,17 @@
     color: #fff;
 }
 
+a.dewey000:hover,
+a.dewey100:hover,
+a.dewey200:hover,
+a.dewey300:hover,
+a.dewey500:hover,
+a.dewey600:hover,
+a.dewey700:hover,
+a.dewey800:hover {
+    color: #fff;
+}
+
 .dewey400 {
     background-color: #FFFF00;
     color: #000;
@@ -94,16 +105,6 @@
     color: #000;
 }
 
-/* publication-list
-*/
-.publication-list {
-    margin-left: 1rem;
-    margin-right: 1rem;
-}
-
-.publication-list h2 {
-    font-size: 1.3rem;
-}
 
 /* base 
 */
@@ -155,6 +156,14 @@ footer a:hover {
 
 /* list
 */
+.publication-list {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.publication-list h2 {
+    font-size: 1.3rem;
+}
 
 .left-sidebar {
     position: sticky;
@@ -165,19 +174,44 @@ footer a:hover {
     padding-top: 15px;
 }
 
+.clickable-td {
+    cursor: pointer;
+}
+
+.width-10 {
+    width: 5px !important;
+    padding: 0;
+    overflow: hidden;
+    xdisplay: inline-block;
+    xwhite-space: nowrap;
+}
+
+/* desktop */
 @media (min-width: 768px) {
     .collapse.dont-collapse-sm {
         display: block;
         height: auto !important;
         visibility: visible;
     }
+
 }
 
+/* mobile */
 @media (max-width: 767px) {
     .left-sidebar {
         position: relative;
-        min-height: 0;
+        min-height: 0px;
         border-right: none;
         padding-top: 0px;
+    }
+
+    .dont-padding-sm {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .publication-list {
+        margin-left: 0px;
+        margin-right: 0px;
     }
 }
