@@ -53,7 +53,7 @@ def publication(request):
         "publication_count": publication_list.count(),
         "navpubclass": "navbar-light",
     }
-    return render(request, "catalog/publication-v2.html", context=context_page)
+    return render(request, "catalog/publication-v3.html", context=context_page)
 
 
 def home(request):

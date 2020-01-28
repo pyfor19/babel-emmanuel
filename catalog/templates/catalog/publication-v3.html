@@ -1,0 +1,91 @@
+{% extends 'catalog/base.html' %}
+{% load crispy_forms_tags static %}
+
+{% block jumbotron %}
+<div class="pt-3 {%if jumbotron_class %}{{jumbotron_class}}{% endif %}">
+  <div class="container mt-3 mt-2">
+    <h1 class="display-4">{{ local.title }}</h1>
+    <p class="lead">{{ local.description }}</p>
+  </div>
+
+  <nav class="navbar {% if navpubclass %}{{navpubclass}}{%else%}navbar-dark{%endif%} 
+  {%if jumbotron_class %}{{jumbotron_class}}{%endif%}">
+    <div>
+      {%if request.path != '/catalog/' %}    
+      <a href="{% url 'publication' %}" class="btn btn-dark btn-sm">Catalogue</a>
+      {% endif %}
+      {# <button class="navbar-toggler d-sm-none" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation"> #}
+      <button class="navbar-toggler d-sm-none" type="button" id="btn-deweyfilter" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span> <span class="{%if jumbotron_class %}{{jumbotron_class}}{%endif%}"> Filtrer par Dewey </span>
+      </button>
+      <div class="d-none d-sm-inline pl-3"><span class="{%if jumbotron_class %}{{jumbotron_class}}{%endif%}"> Filtrer par Dewey </span></div>
+    </div>
+
+
+  </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-4 col-xl-3 left-sidebar">
+      <div class="collapse dont-collapse-sm" id="navbarToggleExternalContent">
+        {% include 'catalog/dewey-list-v2.html' %}
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-xl-9 pt-3 dont-padding-sm">
+      {% include 'catalog/publication-list-v2.html' %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block slidemenu %}
+<nav id="slidemenu">
+  <section class="menu-section">
+    <h3 class="menu-section-title">Dewey</h3>
+    {% include 'catalog/dewey-list-v2.html' %}
+  </section>
+  {% comment %}
+  <section class="menu-section">
+    <h3 class="menu-section-title">Slideout</h3>
+    <ul class="menu-section-list">
+      <li><a href="https://github.com/mango/slideout" target="_blank">Fork it</a></li>
+      <li><a href="https://github.com/mango/slideout/issues/new" target="_blank">Create an issue</a></li>
+      <li><a href="https://github.com/mango/slideout/releases/" target="_blank">Download</a></li>
+      <li><a href="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js" target="_blank">CDN</a></li>
+    </ul>
+  </section>
+  {% endcomment %}
+</nav>
+
+{% endblock %}
+
+
+{% block userscript %}
+<script src="{% static 'catalog/slideout.min.js' %}"></script>
+<script>
+jQuery(document).ready(function($) {
+  var slideout = new Slideout({
+    'panel': document.getElementById('panel'),
+    'menu': document.getElementById('slidemenu'),
+    'padding': 256,
+    'tolerance': 70
+  });
+
+  // Toggle button
+  document.querySelector('#btn-deweyfilter').addEventListener('click', function() {
+    slideout.toggle();
+  });
+    $(".clickable-td").click(function() {
+        window.location = $(this).data("href");
+    });
+
+
+})
+</script>
+
+
+{% endblock %}

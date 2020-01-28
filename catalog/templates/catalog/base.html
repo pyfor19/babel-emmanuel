@@ -17,7 +17,8 @@
     <meta name="description" content="{{ local.description|truncatechars:160 }}">
   </head>
   <body {%if local.bodyclass %}class="{{local.bodyclass}}"{%endif%}>
-
+{% block slidemenu %}{% endblock %}
+<main id="panel">
   {% block navbar %}
   {% include 'catalog/navbar.html' %}
   {% endblock %}
@@ -38,7 +39,7 @@
     </div>
   </footer>
   {% endblock %}
-
+</main>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
