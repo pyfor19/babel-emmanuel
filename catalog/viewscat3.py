@@ -44,7 +44,15 @@ class SubmitFormView(FormView):
             return reverse("publication-dewey", kwargs={"deweynumber": dewey_number})
 
 
-
+{%if form %}
+<div>form
+  <form method="post" id="form-url" action="{% url 'submiturl' %}">
+      {% csrf_token %}
+      {{ form|crispy  }}   
+      <button type="submit">submit</button> 
+  </form>
+</div>
+{% endif %}
 
 
 

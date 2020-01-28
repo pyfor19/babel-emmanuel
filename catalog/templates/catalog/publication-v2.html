@@ -7,7 +7,9 @@
     <h1 class="display-4">{{ local.title }}</h1>
     <p class="lead">{{ local.description }}</p>
   </div>
-  <nav class="navbar {% if navpubclass %}{{navpubclass}}{%else%}navbar-dark{%endif%} {%if jumbotron_class %}{{jumbotron_class}}{%endif%}">
+
+  <nav class="navbar {% if navpubclass %}{{navpubclass}}{%else%}navbar-dark{%endif%} 
+  {%if jumbotron_class %}{{jumbotron_class}}{%endif%}">
     <div>
       {%if request.path != '/catalog/' %}    
       <a href="{% url 'publication' %}" class="btn btn-dark btn-sm">Catalogue</a>
@@ -36,15 +38,7 @@
     </div>
   </div>
 </div>
-{%if form %}
-<div>form
-  <form method="post" id="form-url" action="{% url 'submiturl' %}">
-      {% csrf_token %}
-      {{ form|crispy  }}   
-      <button type="submit">submit</button> 
-  </form>
-</div>
-{% endif %}
+
 {% endblock %}
 
 {% block userscript %}
