@@ -5,16 +5,16 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item {%if local.active == 'home' %}active{%endif%}">
+      <li class="nav-item {{ local.home_isactive }}">
         <a class="nav-link" href="{% url 'home' %}">Accueil <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item {%if local.active == 'publication' %}active{%endif%}">
+      <li class="nav-item {{ local.catalog_isactive }}">
         <a class="nav-link" href="{% url 'publication' %}">Catalogue des ouvrages</a>
       </li>      
-      <li class="nav-item {%if local.active == 'newsroom' %}active{%endif%}">
+      <li class="nav-item {{ local.newsroom_isactive }}">
         <a class="nav-link" href="{% url 'newsroom' %}">Salle de presse</a>
       </li>
-      <li class="nav-item {%if local.active == 'about' %}active{%endif%}">
+      <li class="nav-item {{ local.about_isactive }}">
         <a class="nav-link" href="{% url 'about' %}">A propos</a>
       </li>
     </ul>

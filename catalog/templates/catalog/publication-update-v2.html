@@ -1,30 +1,40 @@
 {% extends 'catalog/publication-detail-v2.html' %}
-
+{% load crispy_forms_tags %}
 
 {% block content %}
-
     {% block contentactions %}
-    <nav class="navbar dewey{{object.dewey_number.number}}">
-    <div>
-        <a href="{{ object.get_absolute_url }}" class="btn btn-sm btn-outline-dark">< Retour</a>
-        <a href="{% url 'publication-update-pk' object.pk %}" class="btn btn-sm btn-danger">Enregistrer les modifications</a>
-    </div>
+    <nav class="navbar dewey{{object.dewey_number.number}} sticky-top">
+        <div class="container">
+            <div>
+                <a href="{{ object.get_absolute_url }}" class="btn btn-sm btn-light">< Retour</a>
+                <a href="#" class="btn btn-sm btn-success" id="save-maj">Enregistrer les modifications</a>
+            </div>
+        </div>
     </nav>
     {% endblock %}
-    {% block contenttitle %}
-        {{ block.super }}
-    {% endblock %}
 
+    {% block contenttitle %}    
     <div class="container">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_ul }}
-            <input type="submit" value="Mettre à jour">
-        </form>
-    </div>
+        <h1>{{ object }}</h1>
+    {% endblock %}
 
     {% block contentdetail %}
-        {{ block.super }}
+        <form method="post" id="form-maj">
+            {% csrf_token %}
+            {{ form|crispy  }}    
+        </form>
+    </div>
     {% endblock %}
+{% endblock %}
 
+{% block userscript %}
+{{ block.super }}
+<script>
+window.onload = function() {
+    document.getElementById("save-maj").addEventListener("click", function () {
+        document.getElementById('form-maj').submit();
+        return false;
+    });
+}
+</script>
 {% endblock %}

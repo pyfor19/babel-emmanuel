@@ -4,8 +4,43 @@
 """
 import os
 import xlrd
+import requests
 import markdown
+from django.urls import resolve
 from django.conf import settings
+
+
+def get_url(url):
+    """
+    do a request
+    """
+    user_agent_text = "Mozilla/5.0 (Windows NT 6.3; Win) Gecko/20100101 Firefox/71.0"
+    headerdict = {"User-Agent": user_agent_text}
+    r = requests.get(url, headers=headerdict)
+    r.raise_for_status()
+    return r
+
+
+def get_active_link(request):
+    """
+    récupère le slug principal ou définit 'home' pour l'accueil,
+    est utilisé dans le context local de chaque page pour définir la classs active de la navbar
+    mainslug : active 
+    class="{{ newsroom_isactive}}"
+    au lieu de 
+    class="{%if newsroom_isactive == 'newsroom' %}active{%endif%}"
+    """
+    # resolve pour informations seulement
+    # u = resolve(request.path)
+    # print(u)
+    # print(u.url_name)
+    try:
+        urlactive = request.path.split("/")
+        mainslug = urlactive[1]
+    except:
+        mainslug = ""
+
+    return (mainslug if mainslug != "" else "home") + "_isactive"
 
 
 def read_from_markdown(file_md):

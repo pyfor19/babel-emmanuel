@@ -1,7 +1,25 @@
-from django.views.generic import TemplateView, ListView, DetailView, UpdateView
+from django.views.generic import (
+    TemplateView,
+    ListView,
+    DetailView,
+    UpdateView,
+    FormView,
+)
 from django.utils.translation import gettext as _
+from django.views.generic.edit import FormMixin
+from django.urls import reverse, reverse_lazy
+from django import forms
 from .models import Publication, Dewey
 from .views import CONTEXT_GLOBAL
+from .utils import get_active_link, get_url
+
+"""
+productTitle
+author a-link-normal
+imgBlkFront
+productDescriptionWrapper
+detail_bullets_id content
+"""
 
 
 class MixinContextPage:
@@ -12,7 +30,7 @@ class MixinContextPage:
         context_local = {
             "title": self.title,
             "description": self.description,
-            "active": "publication",
+            get_active_link(self.request): "active",  # "publication",
         }
         context_page = {
             "global": CONTEXT_GLOBAL,
@@ -39,6 +57,7 @@ class PublicationByDewey(MixinContextPage, ListView):
     # rendre title dynamique et traduisible
     title = _("Dewey {}")
     description = _("Vous trouvez seulement les publications de cette catégorie")
+    object_list = Publication.objects.all()
 
     def get_queryset(self):
         # argument dewey_number provenant de la structure de l'url
@@ -50,7 +69,7 @@ class PublicationByDewey(MixinContextPage, ListView):
         # et requête avec l'objet dewey
         self.currentdewey = Dewey.objects.get(number=self.deweynumber)
         self.publication_count = queryset.count()
-
+        self.object_list = queryset
         return queryset
 
     def get_context_data(self, **kwargs):

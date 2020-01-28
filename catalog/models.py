@@ -102,6 +102,7 @@ class Publication(models.Model):
     isbn = models.CharField(
         max_length=50, null=True, blank=True, verbose_name=_("ISBN")
     )
+    like = models.BooleanField(default=False)
 
     class Meta:
         ordering = ["reference"]

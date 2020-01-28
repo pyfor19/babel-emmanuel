@@ -4,8 +4,8 @@
 
 {% block content %}
     {% block contentactions %}
-    <nav class="navbar dewey{{object.dewey_number.number}}">
-        <div>
+    <nav class="navbar dewey{{object.dewey_number.number}} sticky-top">
+        <div class="container">
         <a href="{% url 'publication-dewey' object.dewey_number.number %}" class="btn btn-sm btn-outline-dark dewey{{object.dewey_number.number}}">< {{object.dewey_number}}</a>
         {%if user.is_authenticated %}
             <a href="{% url 'publication-update-pk' object.pk %}" class="btn btn-sm btn-danger">Editer</a>
@@ -14,29 +14,48 @@
     </nav>
     {% endblock %}
     {% block contenttitle %}
-        <h1>{{ object }}</h1>
     {% endblock %}
     {% block contentdetail %}
-        <ul>
-            <li>{{object.name}}</li>
-            <li>Type : {{object.type_publication}}</li>
-            <li>Date : {{object.date_publication}}</li>
-            <li>author: 
-                <ul>
-                    <li>{{object.author}}</li>
-                    <li>{{object.author.century_birth}}</li>
-                    <li>{{object.author.date_birth}}</li>
-                </ul>
-            </li>
-            <li>contenu :<br> {{ object.content }} </li>
-            <li>nb de pistes / de pages  :<br> {{ object.nb_tracks_pages }} </li>
-            {%if object.image_file %}
-                <li>image attachée :<br> {{ object.image_file }} </li>
-            {% endif %}
-            {%if object.image_url %}
-                <li><img src="{{ object.image_url }}" class="img-fluid" alt="Image associée à {{object.name}}"></li>
-            {% endif %}            
-            <li>{{object.dewey_number.colored_number}}</li>
-        </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-4 col-xl-3 left-sidebar">     
+                {%if object.image_url %}
+                <img src="{{ object.image_url }}" class="img-fluid" alt="Image de {{object.name}}">
+                {% endif %}  
+                {%if object.image_file %}
+                    <hr>
+                    image attachée : {{ object.image_file }} 
+                {% endif %}            
+            </div>
+            <div class="col-8 col-xl-9 pt-3">
+                <h2>{{object.name}}</h2>
+                de <strong>{{object.author}}</strong>, {{object.author.century_birth}} siècle
+                {% if object.label_editor %}
+                    , {% if object.type_publication == 'B' %}Edition{% elif object.type_publication  == 'M' %}Label{%else %}Source{%endif%}
+                    &nbsp;{{ object.label_editor }}
+                {% endif %}
+            
+                <div>                
+                {% if object.date_publication %}
+                Date : {{ object.date_publication }} <br>
+                {% endif %}
+                {% if object.type_publication  == 'B' %}Livre{% elif object.type_publication  == 'M' %}Musique{%else %}Autre{%endif%}
+                Réf. {{ object.reference }}                
+                {% if object.nb_tracks_pages %}
+                    <br>
+                    {% if object.type_publication  == 'B' %}Nombre de pages{% else %}Nombre de pistes{%endif%} :
+                    {{ object.nb_tracks_pages }}
+                {%endif%}
+
+                </div>
+
+                {% if object.content %}
+                <div class="p-2">{{ object.content }} </div>
+                {%endif%}
+         
+            </div>
+        </div>
+    </div>
+        
     {% endblock %}
 {% endblock %}

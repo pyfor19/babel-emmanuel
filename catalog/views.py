@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db.models import Q
 from django.urls import reverse
 from .models import Dewey, Publication
-from .utils import read_from_markdown
+from .utils import read_from_markdown, get_active_link
 
 # Create your views here.
 CONTEXT_GLOBAL = {
@@ -42,7 +42,7 @@ def publication(request):
     context_local = {
         "title": "Liste des publications du catalogue",
         "description": "Vous trouverez tous les ouvrages et leurs classifications",
-        "active": "publication",
+        get_active_link(request): "active",
     }
     context_page = {
         "global": CONTEXT_GLOBAL,
@@ -62,7 +62,7 @@ def home(request):
         "local": {
             "title": "Bienvenue sur Babel",
             "description": description,  # "Bienvenue sur cette page en cours de réalisation",
-            "active": "home",
+            get_active_link(request): "active",
         },
         "jumbotron": {
             "class": "home-jumbotron",
@@ -70,6 +70,8 @@ def home(request):
             "cta_text": "Accès au catalogue",
         },
     }
+    print(context["local"])
+
     context_page = {"global": CONTEXT_GLOBAL, **context}
     return render(request, "catalog/index.html", context=context_page)
 
@@ -82,7 +84,7 @@ def about(request):
         "content1title": "Notre readme sur le projet Babel",
         "content2": read_from_markdown("changelog.md"),
         "content2title": "Notre changelog sur les étapes de notre formation",
-        "active": "about",
+        "about_isactive ": "active",
         "bodyclass": "background-grey",
     }
     context_page = {"global": CONTEXT_GLOBAL, "local": context_local}
@@ -101,7 +103,7 @@ def newsroom(request):
     context_local = {
         "title": "Salle de Presse",
         "description": "Découvrez une liste de quotidiens internationaux",
-        "active": "newsroom",
+        "newsroom_isactive": "active",
     }
 
     # pour ajouter les deux dictionnaires onedict et anotherdict au dictionnaire bigdict,

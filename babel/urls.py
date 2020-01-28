@@ -8,7 +8,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from catalog.views import home, newsroom, about, publication
-from catalog.viewscat import PublicationUpdate, PublicationByDewey, PublicationDetail
+from catalog.viewscat import (
+    PublicationUpdate,
+    PublicationByDewey,
+    PublicationDetail,
+)
 
 from catalog.viewscat2 import testajax
 
@@ -29,7 +33,6 @@ urlpatterns = [
         name="publication-update-pk",
     ),
     path("", home, name="home"),
-    path("ajax/test/", testajax),
 ]
 
 if settings.DEBUG:

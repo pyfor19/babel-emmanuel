@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "import_export",
+    "crispy_forms",
     "catalog",
 ]
 
@@ -69,6 +70,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "babel.urls"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 TEMPLATES = [
     {
