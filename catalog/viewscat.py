@@ -49,7 +49,7 @@ class PublicationByDewey(MixinContextPage, ListView):
     Vue permettant de voir les publications filtrées par classement Dewey 
     """
 
-    template_name = "catalog/publication-v2.html"
+    template_name = "catalog/publication-v3.html"
     context_object_name = "publication_object_list"
     # ajout du MixinContextPage pour hériter d'un context global et local
     # ajout du support de la traduction avec _()
